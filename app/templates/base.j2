@@ -1,0 +1,10 @@
+{% import 'macros.j2' as macros %}
+<!DOCTYPE html>
+<head>
+    <title>{% block title %}Flask-Dance Multi Provider{% endblock %}</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+  {{ macros.messages() }}
+  {% block body %}{% endblock %}
+</body>

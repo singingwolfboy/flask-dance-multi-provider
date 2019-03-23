@@ -1,0 +1,21 @@
+{% extends 'base.j2' %}
+{% import 'macros.j2' as macros %}
+{% block body %}
+  <h1>Login</h1>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    {{ macros.render_field(form.username) }}
+    {{ macros.render_field(form.password) }}
+    <div class="buttons">
+      <input type="submit" value="Log In">
+    </div>
+  </form>
+  <p>OR</p>
+  <ul>
+    <li><a href="{{ url_for("github.login") }}">Login with GitHub</a></li>
+    <li><a href="{{ url_for("google.login") }}">Login with Google</a></li>
+  </ul>
+  <p>If you want to create a new account, log in with a social provider or
+    <a href="{{ url_for("auth.register") }}">go to the registration page</a>.
+  </p>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.j2' %}
+{% import 'macros.j2' as macros %}
+{% block body %}
+  <h1>Merge Account</h1>
+  <p>If you want to merge another account into this one, log in to that account here. That account must have a password set.</p>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    {{ macros.render_field(form.username) }}
+    {{ macros.render_field(form.password) }}
+    <div class="buttons">
+      <input type="submit" value="Merge Account">
+    </div>
+  </form>
+  <p>Warning: all of the content of that account will be transferred to this account, and then that account will be deleted!</p>
+{% endblock %}

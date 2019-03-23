@@ -1,0 +1,35 @@
+{% extends 'base.j2' %}
+{% block body %}
+<h1>Home</h1>
+{% if current_user.is_authenticated %}
+  <p>You are logged in as <strong>{{ current_user.username }}</strong>!</p>
+  <ul>
+    <li>
+      You{% if not current_user.has_password %} do not{% endif %} have a password set for your account.
+      {% if not current_user.has_password %}
+        <a href="{{ url_for("auth.set_password") }}">Set a password</a>
+      {% endif %}
+    </li>
+    <li>
+      {% if current_user.oauth["google"] %}
+        You are <strong>{{ current_user.oauth["google"].provider_user_login }}</strong> on Google.
+      {% else %}
+        You have not linked a Google account.
+        <a href="{{ url_for("google.login") }}">Link Google account</a>
+      {% endif %}
+    </li>
+    <li>
+      {% if current_user.oauth["github"] %}
+        You are <strong>{{ current_user.oauth["github"].provider_user_login }}</strong> on GitHub.
+      {% else %}
+        You have not linked a GitHub account.
+        <a href="{{ url_for("github.login") }}">Link GitHub account</a>
+      {% endif %}
+    </li>
+  </ul>
+  <a href="{{ url_for("auth.logout") }}">Log out</a>
+{% else %}
+  You are not logged in.
+  <a href="{{ url_for("auth.login") }}">Log in</a>
+{% endif %}
+{% endblock %}

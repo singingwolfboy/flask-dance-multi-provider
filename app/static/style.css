@@ -1,0 +1,24 @@
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  max-width: 20em;
+}
+
+form label {
+  text-align: right;
+}
+
+form .errors {
+  grid-column-end: span 2;
+  padding: 0 0 5px 0;
+  margin: 0;
+  list-style: none;
+  color: red;
+  text-align: center;
+}
+
+form .buttons {
+  grid-column-end: span 2;
+  text-align: right;
+}
