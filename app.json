@@ -1,9 +1,7 @@
 {
   "name": "Flask-Dance with Multiple OAuth Providers",
   "description": "Testing Flask-Dance's OAuth integration with multiple OAuth providers using SQLAlchemy",
-  "keywords": [
-    "oauth"
-  ],
+  "keywords": ["oauth"],
   "website": "https://github.com/singingwolfboy/flask-dance-multi-provider",
   "repository": "https://github.com/singingwolfboy/flask-dance-multi-provider",
   "env": {
@@ -27,5 +25,9 @@
       "description": "The OAuth client secret for your application, assigned by Google",
       "value": "app-secret-goes-here"
     }
+  },
+  "addons": [{ "plan": "heroku-postgresql" }],
+  "scripts": {
+    "postdeploy": "flask createdb"
   }
 }
