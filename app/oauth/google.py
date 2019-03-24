@@ -25,20 +25,22 @@ def google_logged_in(blueprint, token):
         flash(msg, category="error")
         return False
 
-    info = resp.json()
-    user_id = info["id"]
+    google_info = resp.json()
+    google_user_id = google_info["id"]
 
     # Find this OAuth token in the database, or create it
     query = OAuth.query.filter_by(
         provider=blueprint.name,
-        provider_user_id=user_id,
+        provider_user_id=google_user_id,
     )
     try:
         oauth = query.one()
     except NoResultFound:
+        google_user_login = str(google_info["email"])
         oauth = OAuth(
             provider=blueprint.name,
-            provider_user_id=user_id,
+            provider_user_id=google_user_id,
+            provider_user_login=google_user_login,
             token=token,
         )
 
@@ -48,9 +50,7 @@ def google_logged_in(blueprint, token):
 
     else:
         # Create a new local user account for this user
-        user = User(
-            name=info["screen_name"],
-        )
+        user = User(username=google_info["email"])
         # Associate the new local user account with the OAuth token
         oauth.user = user
         # Save and commit our database models
@@ -78,12 +78,12 @@ def google_logged_in(blueprint, token):
         return
 
     google_info = resp.json()
-    google_user_id = str(github_info["id"])
+    google_user_id = str(google_info["id"])
 
     # Find this OAuth token in the database, or create it
     query = OAuth.query.filter_by(
         provider=blueprint.name,
-        provider_user_id=github_user_id,
+        provider_user_id=google_user_id,
     )
     try:
         oauth = query.one()
