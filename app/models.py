@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin
 from flask_bcrypt import Bcrypt
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
-from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm.collections import attribute_mapped_collection
 
 
@@ -37,7 +36,7 @@ class User(UserMixin, db.Model):
 
 class OAuth(OAuthConsumerMixin, db.Model):
     __table_args__ = (
-        UniqueConstraint("provider", "provider_user_id"),
+        db.UniqueConstraint("provider", "provider_user_id"),
     )
     provider_user_id = db.Column(db.String(256), nullable=False)
     provider_user_login = db.Column(db.String(256), nullable=False)
