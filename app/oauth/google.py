@@ -8,6 +8,7 @@ from app.models import db, User, OAuth
 
 
 blueprint = make_google_blueprint(
+    scope=["profile", "email"],
     storage=SQLAlchemyStorage(OAuth, db.session, user=current_user)
 )
 
