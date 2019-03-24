@@ -9,6 +9,10 @@
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret"
     },
+    "OAUTHLIB_RELAX_TOKEN_SCOPE": {
+      "description": "Don't panic when Google changes the OAuth scopes",
+      "value": "true"
+    },
     "GITHUB_OAUTH_CLIENT_ID": {
       "description": "The OAuth client ID for your application, assigned by GitHub",
       "value": "app-id-goes-here"
