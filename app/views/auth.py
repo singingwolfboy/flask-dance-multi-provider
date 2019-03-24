@@ -61,7 +61,11 @@ def merge():
         if user:
             if user != current_user:
                 merge_users(current_user, user)
-                flash("User {username} has been merged into your account".format(username=user.username))
+                flash(
+                    "User {username} has been merged into your account".format(
+                        username=user.username
+                    )
+                )
                 return redirect(url_for("main.index"))
             else:
                 form.username.errors.append("Cannot merge with yourself")
@@ -70,7 +74,7 @@ def merge():
 
 def merge_users(merge_into, merge_from):
     assert merge_into != merge_from
-    OAuth.query.filter(user=merge_from).update(user=merge_into)
+    OAuth.query.filter_by(user=merge_from).update(user=merge_into)
     db.session.delete(merge_from)
     db.session.commit()
     return merge_into
