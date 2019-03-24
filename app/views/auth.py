@@ -74,7 +74,7 @@ def merge():
 
 def merge_users(merge_into, merge_from):
     assert merge_into != merge_from
-    OAuth.query.filter_by(user=merge_from).update(user=merge_into)
+    OAuth.query.filter_by(user=merge_from).update({OAuth.user: merge_into})
     db.session.delete(merge_from)
     db.session.commit()
     return merge_into
