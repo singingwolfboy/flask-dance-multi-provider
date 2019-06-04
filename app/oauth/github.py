@@ -29,8 +29,7 @@ def github_logged_in(blueprint, token):
 
     # Find this OAuth token in the database, or create it
     query = OAuth.query.filter_by(
-        provider=blueprint.name,
-        provider_user_id=github_user_id,
+        provider=blueprint.name, provider_user_id=github_user_id
     )
     try:
         oauth = query.one()
@@ -87,12 +86,7 @@ def github_logged_in(blueprint, token):
 # notify on OAuth provider error
 @oauth_error.connect_via(blueprint)
 def github_error(blueprint, message, response):
-    msg = (
-        "OAuth error from {name}! "
-        "message={message} response={response}"
-    ).format(
-        name=blueprint.name,
-        message=message,
-        response=response,
+    msg = ("OAuth error from {name}! " "message={message} response={response}").format(
+        name=blueprint.name, message=message, response=response
     )
     flash(msg, category="error")

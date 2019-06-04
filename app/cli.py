@@ -12,8 +12,4 @@ def create_db():
 
 
 def shell_context_processor():
-    return {
-        "db": db,
-        "User": User,
-        "OAuth": OAuth,
-    }
+    return {"db": db, "User": User, "OAuth": OAuth}

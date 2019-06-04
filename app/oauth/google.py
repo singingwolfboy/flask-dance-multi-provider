@@ -9,7 +9,7 @@ from app.models import db, User, OAuth
 
 blueprint = make_google_blueprint(
     scope=["profile", "email"],
-    storage=SQLAlchemyStorage(OAuth, db.session, user=current_user)
+    storage=SQLAlchemyStorage(OAuth, db.session, user=current_user),
 )
 
 
@@ -31,8 +31,7 @@ def google_logged_in(blueprint, token):
 
     # Find this OAuth token in the database, or create it
     query = OAuth.query.filter_by(
-        provider=blueprint.name,
-        provider_user_id=google_user_id,
+        provider=blueprint.name, provider_user_id=google_user_id
     )
     try:
         oauth = query.one()
@@ -83,8 +82,7 @@ def google_logged_in(blueprint, token):
 
     # Find this OAuth token in the database, or create it
     query = OAuth.query.filter_by(
-        provider=blueprint.name,
-        provider_user_id=google_user_id,
+        provider=blueprint.name, provider_user_id=google_user_id
     )
     try:
         oauth = query.one()
@@ -141,12 +139,7 @@ def google_logged_in(blueprint, token):
 # notify on OAuth provider error
 @oauth_error.connect_via(blueprint)
 def google_error(blueprint, message, response):
-    msg = (
-        "OAuth error from {name}! "
-        "message={message} response={response}"
-    ).format(
-        name=blueprint.name,
-        message=message,
-        response=response,
+    msg = ("OAuth error from {name}! " "message={message} response={response}").format(
+        name=blueprint.name, message=message, response=response
     )
     flash(msg, category="error")
